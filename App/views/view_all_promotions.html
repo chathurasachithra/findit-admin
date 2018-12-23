@@ -1,0 +1,56 @@
+<div style="margin-top:30px" ng-controller="PromotionController">
+    <style>
+        td{
+            width: 100px;
+            overflow: hidden;
+        }
+    </style>
+    <div class="row">
+        <h2 style="text-align:center">All promotions</h2>
+        <hr />
+    </div>
+    <div class="row" style="text-align: right;" ng-if="listAvailable">
+        <a ng-href="{{baseUrl}}promotion-list-excel" target="_blank">
+            <button class="btn btn-success" style="margin-right: 10px;">Download discount coupon list</button>
+        </a>
+    </div>
+    <div class="row">
+        <md-card class="data-table" style="margin-top:20px">
+            <input type="text" ng-model="filter.search" class="form-control" placeholder="Search parent categories here..."/>
+        </md-card>
+
+        <md-card class="data_table">
+
+            <md-table-container class="data-table-layout">
+                <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise" class="custom-data-table">
+                    <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                    <tr md-row>
+                        <th md-column md-order-by="applicant_id">Promotion name</th>
+                        <th md-column md-order-by="app_name_with_initials">Parent Category</th>
+                        <th md-column md-order-by="app_name">Category Name</th>
+                        <th md-column md-order-by="app_name">Company Name</th>
+                        <th md-column md-order-by="app_NIC">Actions</th>
+
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row md-select="p_cat" md-on-select="logItem" md-auto-select="options.autoSelect"
+                        ng-repeat="p_cat in promotions | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                        <td md-cell>{{p_cat.promotion_name}}</td>
+                        <td md-cell>{{p_cat.parent_category_name}}</td>
+                        <td md-cell>{{p_cat.category_name}}</td>
+                        <td md-cell>{{(p_cat.company_name == null) ? '-' : p_cat.company_name}}</td>
+                        <td md-cell><button  ng-click="edit_promotion(p_cat.promotion_slug)">Edit</button> | <button ng-click="deleteSubCategory(p_cat.promotion_id)" style="color=white; background-color:red">Delete</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{count}}"
+                                 md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+                                 md-limit-options="[5, 10, 15]"
+                                 md-on-paginate="logPagination"></md-table-pagination>
+
+        </md-card>
+    </div>
+</div>

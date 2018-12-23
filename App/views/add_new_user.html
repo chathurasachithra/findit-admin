@@ -1,0 +1,42 @@
+<div class="col-lg-6" ng-controller="UserController">
+    <form role="form" name="form_user">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label style="margin-top: 2px">User name </label>
+            </div>
+            <div class="col-md-8">
+                <input ng-model="username" class="form-control" placeholder="Ex: john" type="text" name="username" required>
+                <!--Error Messages-->
+                <div ng-if="form_user.username.$dirty" ng-messages="form_user.username.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Username is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-4">
+                <label style="margin-top: 2px">Password</label>
+            </div>
+            <div class="col-md-8">
+                <input ng-model="password" class="form-control" type="password" name="pass" required>
+                <!--Error Messages-->
+                <div ng-if="form_user.pass.$dirty" ng-messages="form_user.pass.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Password is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-default" ng-click="add_new()">Add</button>
+                <button type="reset" class="btn btn-default" ng-click="resetAll()">Reset</button>
+            </div>
+        </div>
+
+    </form>
+</div>

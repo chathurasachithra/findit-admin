@@ -1,0 +1,127 @@
+<div ng-controller="CompanyPromoController">
+    <div class="col-lg-12" >
+        <form role="form" name="form_photo">
+
+            <div class="form-group">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Company Name</label>
+                </div>
+                <div class="col-md-7">
+                    {{company.company_name}}
+                </div>
+            </div>
+            <br />
+            <br />
+
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Add new promo</label>
+                </div>
+                <div class="col-md-7" style="min-height: 30px;display: block;">&nbsp;
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5" style="text-align: right;">
+                    <label style="margin-top: 2px;font-weight: 100;">Image</label>
+                </div>
+                <div class="col-md-7" style="min-height: 30px;display: block;">
+                    <input type="file" ng-model="promo_image" ngf-max-size="'2MB'"  placeholder="Choose File" ngf-select="selected_signed_file = image_banner ? image_banner : selected_signed_file; comp_msg = 'Old'"  name="image" />
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5" style="text-align: right;">
+                    <label style="margin-top: 2px;font-weight: 100;">Title</label>
+                </div>
+                <div class="col-md-7" style="min-height: 30px;display: block;">
+                    <input ng-model="title" class="form-control" type="text">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5" style="text-align: right;" >
+                    <label style="margin-top: 2px;font-weight: 100;">Description</label>
+                </div>
+                <div class="col-md-7" style="min-height: 30px;display: block;">
+                    <textarea ng-model="description" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5" style="min-height: 30px;display: block;">
+                    &nbsp;
+                </div>
+                <div class="col-md-7" style="min-height: 30px;display: block;">
+
+                    <button style="margin-top: 10px; margin-bottom: 10px;" type="submit" class="btn btn-default" ng-click="addPhoto()">Upload</button>
+                </div>
+            </div>
+
+            <style>
+                .fm-promo-image-box {
+                    padding: 2px;
+                    float: left;
+                    margin-bottom: 10px;
+                    margin: 5px;
+                }
+
+                .fm-promo-image-box img {
+                    width: 100%;
+                    max-height: 90px;
+                }
+
+                .cus-remove-image {
+                    margin-top: 4px;
+                    margin-bottom: 4px;
+                    width: 66px;
+                    font-size: 87%;
+                    border-radius: 4px;
+                }
+            </style>
+            <br />
+            <br />
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-12">
+
+                    <div class="col-md-2 fm-promo-image-box" ng-repeat="image in images" >
+                        <img  ng-src="{{promoImagePath}}{{image.image_name}}">
+                        <div>
+                            <button class="cus-remove-image"
+                                    type="buttion" class="btn btn-default" ng-click="deleteImage(image.id)">Remove</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <br />
+        </form>
+        <hr>
+        <form role="form" name="form_video">
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Youtube URLs (Comma separated)</label>
+                </div>
+                <div class="col-md-7">
+                    <textarea ng-model="promo_videos" class="form-control"></textarea>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-7">
+                    <button style="margin-top: 10px; margin-bottom: 10px;" type="submit" class="btn btn-default" ng-click="addVideos()">Save</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

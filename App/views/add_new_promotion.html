@@ -1,0 +1,286 @@
+<style>
+    .ta-editor.form-control.myform-height, .ta-scroll-window.form-control.myform-height  {
+        min-height: 150px;
+        height: auto;
+        overflow: auto;
+        font-family: inherit;
+        font-size: 100%;
+    }
+
+    .form-control.myform-height > .ta-bind {
+        height: auto;
+        min-height: 150px;
+        padding: 6px 12px;
+    }
+</style>
+
+<h3>Add new Promotions</h3>
+<hr />
+<div ng-controller="PromotionController">
+    <div class="col-md-12" >
+        <form role="form" name="form_promotion">
+
+
+        <div class="row form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Promotion name</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="name" class="form-control" type="text" name="name" required>
+                <!--Error Messages-->
+                <div ng-if="form_promotion.name.$dirty" ng-messages="form_promotion.name.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Promotion name is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Promotion image</label>
+            </div>
+            <div class="col-md-7">
+                <input type="file" ng-model="image" ngf-max-size="'2MB'"  placeholder="Choose File" ngf-select="selected_signed_file = image ? image : selected_signed_file"  name="image" required />
+                <!--Error Messages-->
+                <div ng-if="form_promotion.image.$dirty" ng-messages="form_promotion.image.$error" role="alert">
+                    <div style="color: red" ng-message="required">Promotion image is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Is featured</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="is_featured" type="checkbox">
+            </div>
+        </div>
+            <div class="row form-group" style="margin-top: 20px" ng-if="listAvailable">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Availability</label>
+                </div>
+                <div class="col-md-7">
+                    <input ng-model="fake_views" type="number" class="form-control">
+                </div>
+            </div>
+
+        <div class="row form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Parent Category</label>
+            </div>
+            <div class="col-md-7">
+                <select ng-model="P_cat" class="form-control" ng-change="getCategories()" name="p_cat" required>
+                    <option value="{{p_cat.parent_category_slug}}" ng-repeat="p_cat in parent_categories">{{p_cat.parent_category_name}}</option>
+                </select>
+                <!--Error Messages-->
+                <div ng-if="form_promotion.p_cat.$dirty" ng-messages="form_promotion.p_cat.$error" role="alert">
+                    <div style="color: red" ng-message="required">Parent category is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Category</label>
+            </div>
+            <div class="col-md-7">
+                <select ng-model="cat" class="form-control" ng-disabled="enable_categories" name="cat" required>
+                    <option value="{{cat.category_id}}" ng-repeat="cat in categories">{{cat.category_name}}</option>
+                </select>
+                <!--Error Messages-->
+                <div ng-if="form_promotion.cat.$dirty" ng-messages="form_promotion.cat.$error" role="alert">
+                    <div style="color: red" ng-message="required">Category is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company</label>
+            </div>
+            <div class="col-md-7">
+                <select ng-model="comp" class="form-control" name="comp" required>
+                    <option value="999999">No Company</option>
+                    <option value="{{comp.company_id}}"  ng-repeat="comp in companies">{{comp.company_name}}</option>
+                </select>
+                <!--Error Messages-->
+                <div ng-if="form_promotion.comp.$dirty" ng-messages="form_promotion.comp.$error" role="alert">
+                    <div style="color: red" ng-message="required">Company is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group" style="margin-top: 20px" ng-show="comp==999999">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">By Company Text</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="comp_text" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="row form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Add expires in (Days)</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="expires_in" type="number" class="form-control">
+            </div>
+        </div>
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Meta tags</label>
+                </div>
+                <div class="col-md-7">
+                    <textarea ng-model="meta_tags" class="form-control"></textarea>
+                </div>
+            </div>
+
+
+
+
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Offer End Date</label>
+                </div>
+                <div class="col-md-7">
+                    <md-datepicker ng-model="offer_end_date"></md-datepicker>
+                </div>
+            </div>
+
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Promotion description</label>
+                </div>
+                <div class="col-md-7" style="margin-bottom: 20px;">
+
+                    <text-angular ta-text-editor-class="form-control myform-height" rows="3" ng-model="desc"
+                                  data-ng-required="true" required name="description"></text-angular>
+
+                    <!--<textarea ng-model="desc" class="form-control" rows="3" name="description" required></textarea>-->
+                    <!--Error Messages-->
+                    <div ng-if="form_promotion.description.$dirty" ng-messages="form_promotion.description.$error" role="alert">
+                        <div style="color: red" ng-message="required">Description is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Partner Companies</label>
+                    <br />
+                    <ul>
+                        <li ng-repeat="compp in selected_companies">{{compp.name}}</li>
+                    </ul>
+                </div>
+                <div class="col-md-7">
+                    <select ng-model="comp_2" class="form-control">
+                        <option value="{{ comp.company_id}}"  ng-repeat="comp in companies2">{{comp.company_name}}</option>
+                    </select>
+                    <button ng-click="add_company($index)">Add</button>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Date</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" ng-model="date" class="form-control">
+                </div>
+            </div>
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Time</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" ng-model="time" class="form-control">
+                </div>
+            </div>
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Venue</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" ng-model="venue" class="form-control">
+                </div>
+            </div>
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Reservations</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" ng-model="reservations" class="form-control">
+                </div>
+            </div>
+
+
+            <hr />
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Discount type</label>
+                </div>
+                <div class="col-md-7" ng-init="discount_type='0'">
+                    <select ng-model="discount_type" class="form-control" ng-change="changeDiscount()">
+                        <option value="0">No discounts</option>
+                        <option value="1">Percentage</option>
+                        <option value="2">Amount</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Discount amount</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" name="discount" ng-required="discount_type!='0'" ng-model="discount" class="form-control">
+                    <div ng-if="form_promotion.discount.$dirty" ng-messages="form_promotion.discount.$error" role="alert">
+                        <div style="color: red" ng-message="required">Discount amount is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Maximum coupons</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" name="max_amount"  ng-required="discount_type!='0'" ng-model="max_amount" class="form-control">
+                    <div ng-if="form_promotion.max_amount.$dirty" ng-messages="form_promotion.max_amount.$error" role="alert">
+                        <div style="color: red" ng-message="required">Max amount is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Used coupons</label>
+                </div>
+                <div class="col-md-7" ng-init="used_amount=0">
+                    <input type="text" name="used_amount" ng-model="used_amount" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Conditions</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" name="discount_conditions" ng-model="discount_conditions" class="form-control">
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <div class="row form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-7" style="margin-top: 20px">
+                    <button type="submit" class="btn btn-default" ng-click="add_new()">Add</button>
+                    <button type="reset" class="btn btn-default" ng-click="resetAll()">Reset</button>
+                </div>
+            </div>
+    </form>
+    </div>
+
+</div>

@@ -1,0 +1,77 @@
+<h1 style="margin-top: 50px" class="text-center">Sub Categories</h1>
+<hr />
+<div class="col-lg-6" ng-controller="CategoryController">
+    <form name="from_category" role="form">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label style="margin-top: 2px">Parent Category</label>
+            </div>
+            <div class="col-md-8">
+                <select ng-model="p_cat" class="form-control" name="parent_category" required>
+                    <option value="{{pcat.parent_category_id}}" ng-repeat="pcat in parent_categories">{{pcat.parent_category_name}}</option>
+                </select>
+
+                <!--Error Messages-->
+                <div ng-if="from_category.parent_category.$dirty" ng-messages="from_category.parent_category.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Parent category is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label style="margin-top: 2px">Category name </label>
+            </div>
+            <div class="col-md-8">
+                <input ng-model="name" name="name" class="form-control" type="text" required>
+                <!--Error Messages-->
+                <div ng-if="from_category.name.$dirty" ng-messages="from_category.name.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Name is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label style="margin-top: 2px">Category icon </label>
+            </div>
+            <div class="col-md-8">
+                <input ng-model="icon" name="name" class="form-control" type="text" required>
+                <!--Error Messages-->
+                <div ng-if="from_category.name.$dirty" ng-messages="from_category.name.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Icon is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-default" ng-click="add_new()">Add</button>
+                <button type="reset" class="btn btn-default" ng-click="resetAll()">Reset</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="col-lg-6">
+    <h3>How to get parent category icon</h3>
+    <ul>
+        <li><a href="http://www.flaticon.com/" target="_blank">Click here</a></li>
+        <li>Search icon by name</li>
+        <li>Click on view button</li>
+        <li>Select base64 option</li>
+        <li>Select black color</li>
+        <li>Select size as 24</li>
+        <li>Click on free download button</li>
+        <li>Copy the code on first block (HTML version)</li>
+    </ul>
+</div>

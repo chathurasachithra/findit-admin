@@ -1,0 +1,64 @@
+<h1 class="text-center">Parent Categories</h1>
+<hr />
+<div class="col-lg-6" ng-controller="ParentCategoryController">
+    <form role="form" name="form_parent_category">
+
+        <div class="form-group">
+            <div class="col-md-5"
+                <label style="margin-top: 2px">Parent Category name </label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="name" class="form-control" type="text" name="name" required>
+                <!--Error Messages-->
+                <div ng-if="form_parent_category.name.$dirty" ng-messages="form_parent_category.name.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Category name is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Parent Category icon </label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="icon" class="form-control" type="text" name="name" required>
+                <!--Error Messages-->
+                <div ng-if="form_parent_category.name.$dirty" ng-messages="form_parent_category.name.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Category icon is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-7">
+                <button type="submit" class="btn btn-default" ng-click="add_new()">Add</button>
+                <button type="reset" class="btn btn-default" ng-click="resetAll()">Reset</button>
+            </div>
+        </div>
+
+    </form>
+
+    <br />
+    <br />
+    <br />
+
+
+</div>
+<div class="col-lg-6">
+<h3>How to get parent category icon</h3>
+<ul>
+    <li><a href="http://www.flaticon.com/" target="_blank">Click here</a></li>
+    <li>Search icon by name</li>
+    <li>Click on view button</li>
+    <li>Select base64 option</li>
+    <li>Select black color</li>
+    <li>Select size as 24</li>
+    <li>Click on free download button</li>
+    <li>Copy the code on first block (HTML version)</li>
+</ul>
+</div>

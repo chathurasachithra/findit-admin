@@ -1,0 +1,235 @@
+<div ng-controller="CompanyController">
+<div class="col-lg-6" >
+    <form role="form" name="from_company">
+
+        <div class="form-group">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company Category</label>
+            </div>
+            <div class="col-md-7">
+                <select ng-model="c_cat" class="form-control" name="comp_cat" required>
+                    <option value="{{ccat.category_id}}" ng-repeat="ccat in company_ctegories"> {{ccat.category_name}}</option>
+                </select> <img ng-show="c_cat" src="{{c_cat.icon}}">
+
+                <!--Error Messages-->
+                <div ng-if="from_company.comp_cat.$dirty" ng-messages="from_company.comp_cat.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Company category is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+
+
+        <div class="form-group">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company name </label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="name" name="name" class="form-control" required>
+                <!--Error Messages-->
+                <div ng-if="from_company.name.$dirty" ng-messages="from_company.name.$error" role="alert">
+                    <div style="color: red" ng-message="required"> Company name is required</div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company description</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="desc" class="form-control" type="text" name="desc">
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Availability</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="fake_views" class="form-control" type="number" name="desc">
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company tel no 1</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="tel1" class="form-control" type="text" name="tel1" maxlength="15" minlength="10" >
+                <!--Error Messages-->
+                <div ng-if="from_company.tel1.$dirty" ng-messages="from_company.tel1.$error" role="alert">
+                    <div style="color: red" ng-message="maxlength"> Maximum length is 15 digits</div>
+                    <div style="color: red" ng-message="minlength"> Minimum length is 10 digits</div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company tel no 2</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="tel2" class="form-control" type="text" name="tel2" maxlength="15" minlength="10">
+                <!--Error Messages-->
+                <div ng-if="from_company.tel2.$dirty" ng-messages="from_company.tel2.$error" role="alert">
+                    <div style="color: red" ng-message="maxlength"> Maximum length is 15 digits</div>
+                    <div style="color: red" ng-message="minlength"> Minimum length is 10 digits</div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company address</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="address" class="form-control" type="text" name="address">
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company email</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="email" class="form-control" type="email" name="email">
+                <!--Error Messages-->
+                <div ng-if="from_company.email.$dirty" ng-messages="from_company.email.$error" role="alert">
+                    <div style="color: red" ng-message="email"> Email is invalid</div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company website</label>
+            </div>
+            <div class="col-md-7">
+                <input ng-model="website" class="form-control" type="text">
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company logo</label>
+            </div>
+            <div class="col-md-7">
+                <input type="file" ng-model="image" ngf-max-size="'2MB'" x` placeholder="Choose File" ngf-select="selected_signed_file = image ? image : selected_signed_file"  name="image" />
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <div class="form-group" style="margin-top: 20px">
+            <div class="col-md-5">
+                <label style="margin-top: 2px">Company banner</label>
+            </div>
+            <div class="col-md-7">
+                <input type="file" ng-model="image_banner" ngf-max-size="'2MB'"  ngf-resize="{width: 200, height: 100}" placeholder="Choose File" ngf-select="selected_signed_file = image_banner ? image_banner : selected_signed_file"  name="image" />
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <div class="col-md-12">
+            <div class="col-md-12" style="margin: 0px;padding-left: 0px;">
+                <label style="margin-top: 2px">Location</label>
+            </div>
+            <input places-auto-complete on-place-changed="placeMarker()" style="width: 100%;padding: 3px;" />
+            <ng-map id="mapa" center="{{center}}" zoom="7" on-click="getpos($event)" style='width: 100%;'>
+                <marker position="{{latlng}}" on-dragend="getpos($event)"
+                        animation="Animation.BOUNCE" animation="DROP" draggable="true"></marker>
+            </ng-map>
+            Latitude : {{latitude}} | Longitude : {{longitude}}
+        </div>
+
+    </form>
+</div>
+<div class="col-lg-6" >
+        <form role="form">
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Facebook profile</label>
+                </div>
+                <div class="col-md-7">
+                    <input ng-model="fb" class="form-control" type="text">
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Twitter profile</label>
+                </div>
+                <div class="col-md-7">
+                    <input ng-model="twitter" class="form-control" type="text">
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">LinkedIn profile</label>
+                </div>
+                <div class="col-md-7">
+                    <input ng-model="linkedin" class="form-control" type="text">
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Youtube profile</label>
+                </div>
+                <div class="col-md-7">
+                    <input ng-model="youtube" class="form-control" type="text">
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Instagram profile</label>
+                </div>
+                <div class="col-md-7">
+                    <input ng-model="instagram" class="form-control" type="text">
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                    <label style="margin-top: 2px">Meta tags</label>
+                </div>
+                <div class="col-md-7">
+                    <textarea ng-model="meta_tags" class="form-control"></textarea>
+                </div>
+            </div>
+            <br />
+
+
+
+            <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-7">
+                    <button type="submit" class="btn btn-default" ng-click="add_new()">Add</button>
+                    <button type="reset" class="btn btn-default" ng-click="resetAll()">Reset</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
